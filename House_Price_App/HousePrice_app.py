@@ -19,7 +19,7 @@ with header:
 
 with dataset:
     #st.header("Data Snapshot")
-    x=pd.read_csv('realtor-data.csv')
+    x=pd.read_csv('https://github.com/oad67/hpr_app/blob/109fd0b16f2a3c2332d8ccc32dd02a6924c4b632/House_Price_App/realtor-data.csv')
     #st.write(x.head(5))
     
 s=st.sidebar.selectbox("Select State",options=x['state'].unique())
