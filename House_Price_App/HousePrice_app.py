@@ -3,6 +3,7 @@ import pandas as pd
 
 import xgboost as xgb
 import plotly.express as px
+import joblib
 
 
 st.set_page_config(page_title="House Prediction Tool")
@@ -35,15 +36,17 @@ with filt:
     D=pd.DataFrame({"bed":[bed],"bath":[bath],"acre_lot":[lot_size],"house_size":[house_size]})
     #st.write(D)
     
-    x1=x[x['state']==s]
-    h=x1['price'].quantile(0.75)+1.5*(x1['price'].quantile(0.75)-x1['price'].quantile(0.25))
-    x1=x1[x1['price']<h]
-    x2=x1[['bed','bath','acre_lot','house_size','price']]
-    x3=x2.dropna()
-    x4=x3.reset_index(drop=True)
+    #x1=x[x['state']==s]
+    #h=x1['price'].quantile(0.75)+1.5*(x1['price'].quantile(0.75)-x1['price'].quantile(0.25))
+    #x1=x1[x1['price']<h]
+    #x2=x1[['bed','bath','acre_lot','house_size','price']]
+    #x3=x2.dropna()
+    #x4=x3.reset_index(drop=True)
     
-    model=xgb.XGBRegressor(max_depth=20)
-    model.fit(x4.drop(['price'],axis=1),x4['price'])
+    #model=xgb.XGBRegressor(max_depth=20)
+    #model.fit(x4.drop(['price'],axis=1),x4['price'])
+    
+    model=joblib.load("House_Price_App/hpmodel")
     
     predicted_price=model.predict(D)
     p=pd.DataFrame(predicted_price)
